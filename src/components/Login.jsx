@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addUser } from "./utils/userSlice";
-import { PROFILEPIC_URL } from "./utils/constants";
+import { addUser } from "../utils/userSlice";
+import { BASE_URL } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        PROFILEPIC_URL + "/login",
+        BASE_URL + "/login",
         {
           emailId: email,
           password: password,
@@ -23,7 +23,7 @@ const Login = () => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data))
-      navigate("/")
+      return navigate("/")
     } catch (err) {
       console.log("ERROR : ", err);
     }
