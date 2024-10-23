@@ -14,3 +14,6 @@
 - For that we need to pass {withCredentials: true} inside axios
 - Install redux toolkit and react-redux
 - Configure store => Provider => createSlice => add reducer to store
+
+- We should be not able to access other routes without login
+- If token is not present, redirect user to login page
