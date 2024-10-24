@@ -17,3 +17,6 @@
 
 - We should be not able to access other routes without login
 - If token is not present, redirect user to login page
+- Build Logout Feature
+- Build Feed Feature
+- Build User Card
