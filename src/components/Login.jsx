@@ -8,8 +8,9 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("sunny@gmail.com");
   const [password, setPassword] = useState("Sunny@123");
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,10 +23,11 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      dispatch(addUser(res.data))
-      return navigate("/")
+      dispatch(addUser(res.data));
+      return navigate("/");
     } catch (err) {
-      console.log("ERROR : ", err);
+      setError(err.response.data);
+      console.log(err.response.data);
     }
   };
   return (
@@ -64,6 +66,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <p className="text-red-500">{error}</p>
           <button
             type="submit"
             className="w-full p-2 font-semibold text-white transition duration-200 bg-blue-600 rounded-md hover:bg-blue-700"
