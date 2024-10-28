@@ -20,3 +20,4 @@
 - Build Logout Feature
 - Build Feed Feature
 - Build User Card
+- Build my profile section with edit part(PATCH request)

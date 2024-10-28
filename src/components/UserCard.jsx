@@ -3,7 +3,7 @@ import React from "react";
 const UserCard = ({ user }) => {
   const { firstName, lastName, photoUrl, age, gender, about } = user;
   return (
-    <div className="w-1/4 overflow-hidden bg-gray-200 rounded shadow-lg">
+    <div className="w-1/3 h-1/2 overflow-hidden bg-gray-200 rounded shadow-lg">
       <img
         className="object-cover w-full h-48"
         src={photoUrl}
