@@ -21,3 +21,5 @@
 - Build Feed Feature
 - Build User Card
 - Build my profile section with edit part(PATCH request)
+- Build Connections page
+- Build Requests recieved page

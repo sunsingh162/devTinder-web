@@ -17,6 +17,7 @@ const EditProfile = ({ user }) => {
   const dispatch = useDispatch();
 
   const handleSavedChanges = async (e) => {
+    setError("");
     e.preventDefault();
     try {
       const res = await axios.patch(
