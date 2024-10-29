@@ -90,12 +90,16 @@ const EditProfile = ({ user }) => {
                 <label className="block text-sm font-medium text-gray-700">
                   Gender
                 </label>
-                <input
-                  type="text"
-                  value={gender}
+                <select
                   className="block w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+                  value={gender}
                   onChange={(e) => setGender(e.target.value)}
-                />
+                >
+                  <option value="">Choose Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="others">Others</option>
+                </select>
                 <label className="block text-sm font-medium text-gray-700">
                   About
                 </label>

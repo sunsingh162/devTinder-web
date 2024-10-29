@@ -23,3 +23,5 @@
 - Build my profile section with edit part(PATCH request)
 - Build Connections page
 - Build Requests recieved page
+- Accept and reject an incoming request
+- mark interested and uninterested to other users profile in feed page

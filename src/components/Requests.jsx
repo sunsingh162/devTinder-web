@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequests } from "../utils/requestSlice";
+import { addRequests, removeRequests } from "../utils/requestSlice";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
@@ -17,7 +17,6 @@ const Requests = () => {
       console.log(err);
     }
   };
-
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -25,6 +24,19 @@ const Requests = () => {
 
   if (requests.length === 0)
     return <h1 className="my-4 font-bold text-center">No Requests found</h1>;
+
+  const handleReviewRequests = async (status, requestId) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/request/review/" + status + "/" + requestId,
+        {},
+        { withCredentials: true }
+      );
+      dispatch(removeRequests(requestId))
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
       <h1 className="my-4 font-bold text-center">Requests</h1>
@@ -32,7 +44,7 @@ const Requests = () => {
         const { _id, firstName, lastName, photoUrl, age, gender, about } =
           request.fromUserId;
         return (
-          <div id={_id} className="flex items-center m-6 bg-slate-200">
+          <div id={request._id} className="flex items-center m-6 bg-slate-200">
             <div>
               <img alt="profile pic" className="w-20" src={photoUrl} />
             </div>
@@ -42,8 +54,22 @@ const Requests = () => {
               <p>{about}</p>
             </div>
             <div className="flex mx-10 ">
-              <button className="mx-2 btn btn-success">Accept</button>
-              <button className="mx-2 btn btn-error">Reject</button>
+              <button
+                className="mx-2 btn btn-success"
+                onClick={() =>
+                  handleReviewRequests("accepted", request._id)
+                }
+              >
+                Accept
+              </button>
+              <button
+                className="mx-2 btn btn-error"
+                onClick={() =>
+                  handleReviewRequests("rejected", request._id)
+                }
+              >
+                Reject
+              </button>
             </div>
           </div>
         );
