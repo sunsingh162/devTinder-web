@@ -25,3 +25,5 @@
 - Build Requests recieved page
 - Accept and reject an incoming request
 - mark interested and uninterested to other users profile in feed page
+- Made SignUp Page
+- Did End to End testing for our app

@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("sunny@gmail.com");
   const [password, setPassword] = useState("Sunny@123");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,12 +32,58 @@ const Login = () => {
       setError(err?.response?.data);
     }
   };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        { firstName, lastName, emailId: email, password: password },
+        { withCredentials: true }
+      );
+      console.log(res);
+      dispatch(addUser(res.data.data));
+      return navigate("/profile");
+    } catch (err) {
+      console.log(err?.response?.data);
+    }
+  };
   return (
-    <div className="flex justify-center mt-12">
-      <div className="p-8 bg-white rounded-lg shadow-md w-96">
-        <h2 className="mb-6 text-2xl font-semibold text-center">Login</h2>
+    <div className="flex justify-center mt-1 h-1/5">
+      <div className="p-2 bg-white rounded-lg shadow-md w-96">
+        <h2 className="mb-1 text-2xl font-semibold text-center">
+          {isLoginForm ? "Login" : "SignUp"}
+        </h2>
         <form>
-          <div className="mb-4">
+          {!isLoginForm && (
+            <>
+              <div className="mb-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  First Name
+                </label>
+                <input
+                  type="name"
+                  value={firstName}
+                  className="block w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+                  required
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
+              <div className="mb-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Last Name
+                </label>
+                <input
+                  type="name"
+                  value={lastName}
+                  className="block w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+                  required
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
+            </>
+          )}
+          <div className="mb-2">
             <label
               className="block text-sm font-medium text-gray-700"
               htmlFor="email"
@@ -50,7 +99,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-2">
             <label
               className="block text-sm font-medium text-gray-700"
               htmlFor="password"
@@ -68,11 +117,19 @@ const Login = () => {
           <p className="text-red-500">{error}</p>
           <button
             type="submit"
-            className="w-full p-2 font-semibold text-white transition duration-200 bg-blue-600 rounded-md hover:bg-blue-700"
-            onClick={handleLogin}
+            className="w-full p-2 my-2 font-semibold text-white transition duration-200 bg-blue-600 rounded-md hover:bg-blue-700"
+            onClick={isLoginForm ? handleLogin : handleSignUp}
           >
-            Login
+            {isLoginForm ? "Login" : "SignUp"}
           </button>
+          <p
+            className="flex justify-center m-auto cursor-pointer"
+            onClick={() => setIsLoginForm(!isLoginForm)}
+          >
+            {isLoginForm
+              ? "New User? SignUp here!"
+              : "Already an user? Login here!"}
+          </p>
         </form>
       </div>
     </div>
